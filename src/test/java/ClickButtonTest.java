@@ -7,9 +7,8 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.Test;
-
 import java.time.Duration;
-
+import java.util.List;
 public class ClickButtonTest {
     WebDriver driver;
 
@@ -28,8 +27,13 @@ public class ClickButtonTest {
         buttonsOption.click();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(100));
 
-        WebElement clickMeButton = driver.findElement(By.xpath("//button[text()='Click Me']"));
-        clickMeButton.click();
+        List<WebElement> buttons = driver.findElements(By.cssSelector("div.mt-4 button.btn.btn-primary"));
+        for (WebElement button : buttons) {
+            if (button.getText().equals("Click Me")) {
+                button.click();
+                break;
+            }
+        }
 
         WebElement message = driver.findElement(By.id("dynamicClickMessage"));
         Assert.assertTrue(message.isDisplayed());

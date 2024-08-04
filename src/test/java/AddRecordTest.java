@@ -37,9 +37,7 @@ public class AddRecordTest {
 
         driver.findElement(By.id("submit")).click();
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(100));
-
-        WebElement editButton = driver.findElement(By.xpath("//div[text()='Esma']/ancestor::div[contains(@class, 'rt-tr-group')]//span[@title='Edit']"));
+        WebElement editButton = driver.findElement(By.id("edit-record-4"));
         editButton.click();
         WebElement firstNameField = driver.findElement(By.id("firstName"));
         firstNameField.clear();
@@ -48,10 +46,8 @@ public class AddRecordTest {
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(100));
 
-        WebElement editedRecord = driver.findElement(By.xpath("//div[contains(@class, 'rt-tr-group')]//div[text()='Sertan']"));
-        Assert.assertEquals(editedRecord.getText(), "Sertan");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(100));
-
+        WebElement editedRecord = driver.findElement(By.cssSelector("div.rt-tr-group:nth-child(4) div.rt-td:nth-child(1)"));
+        Assert.assertEquals(editedRecord.getText(),"Sertan");
     }
 
     @AfterClass
