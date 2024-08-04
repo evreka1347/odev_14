@@ -8,6 +8,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
+
 public class ClickButtonTest {
     WebDriver driver;
 
@@ -24,13 +26,14 @@ public class ClickButtonTest {
 
         WebElement buttonsOption = driver.findElement(By.cssSelector("li#item-4"));
         buttonsOption.click();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(100));
 
-        WebElement clickMeButton = driver.findElement(By.cssSelector("button#doubleClickBtn"));
+        WebElement clickMeButton = driver.findElement(By.xpath("//button[text()='Click Me']"));
         clickMeButton.click();
 
-        WebElement message = driver.findElement(By.id("doubleClickMessage"));
+        WebElement message = driver.findElement(By.id("dynamicClickMessage"));
         Assert.assertTrue(message.isDisplayed());
-
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(100));
     }
 
     @AfterClass
